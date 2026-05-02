@@ -1214,7 +1214,7 @@ export default class LettaPlugin extends Plugin {
 			);
 			const existingFilesMap = new Map();
 			existingFiles.forEach((file: any) => {
-				existingFilesMap.set(file.file_name, file);
+				existingFilesMap.set(file.original_file_name, file);
 			});
 
 			// Get all markdown files from vault
@@ -1396,7 +1396,7 @@ export default class LettaPlugin extends Plugin {
 					this.source.id,
 				);
 				const existingFile = existingFiles.find(
-					(f: any) => f.file_name === file.path,
+					(f: any) => f.original_file_name === file.path,
 				);
 
 				if (existingFile) {
@@ -1498,10 +1498,10 @@ export default class LettaPlugin extends Plugin {
 				// Delete existing file if it exists
 				try {
 					const existingFiles = await this.makeRequest(
-						`/v1/folders/${this.source.id}/files`,
+						`/v1/folders/${this.source.id}/files?limit=100000`,
 					);
 					const existingFile = existingFiles.find(
-						(f: any) => f.file_name === file.path,
+						(f: any) => f.original_file_name === file.path,
 					);
 					if (existingFile) {
 						await this.makeRequest(
@@ -1581,7 +1581,7 @@ export default class LettaPlugin extends Plugin {
 				this.source.id,
 			);
 			const existingFile = existingFiles.find(
-				(f: any) => f.file_name === file.path,
+				(f: any) => f.original_file_name === file.path,
 			);
 
 			if (existingFile) {
@@ -1613,7 +1613,7 @@ export default class LettaPlugin extends Plugin {
 				this.source.id,
 			);
 			const existingFile = existingFiles.find(
-				(f: any) => f.file_name === file.path,
+				(f: any) => f.original_file_name === file.path,
 			);
 
 			if (existingFile) {
@@ -1637,10 +1637,10 @@ export default class LettaPlugin extends Plugin {
 					// Simple retry - just check once after sync
 					await new Promise((resolve) => setTimeout(resolve, 1000));
 					const updatedFiles = await this.makeRequest(
-						`/v1/folders/${this.source.id}/files`,
+						`/v1/folders/${this.source.id}/files?limit=100000`,
 					);
 					const newFile = updatedFiles.find(
-						(f: any) => f.file_name === file.path,
+						(f: any) => f.original_file_name === file.path,
 					);
 
 					if (newFile) {
@@ -1677,7 +1677,7 @@ export default class LettaPlugin extends Plugin {
 				this.source.id,
 			);
 			const existingFile = existingFiles.find(
-				(f: any) => f.file_name === file.path,
+				(f: any) => f.original_file_name === file.path,
 			);
 
 			if (existingFile) {
