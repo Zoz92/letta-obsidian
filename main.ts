@@ -1225,7 +1225,7 @@ export default class LettaPlugin extends Plugin {
 
 			// First pass: determine which files need uploading
 			for (const file of vaultFiles) {
-				const existingFile = existingFilesMap.get(file.path);
+				const existingFile = existingFilesMap.get(file.path.replace(/\//g, "__"));
 
 				let shouldUpload = true;
 
@@ -1261,7 +1261,7 @@ export default class LettaPlugin extends Plugin {
 
 				const uploadPromises = filesToUpload.map(
 					async (file, index) => {
-						const existingFile = existingFilesMap.get(file.path);
+						const existingFile = existingFilesMap.get(file.path.replace(/\//g, "__"));
 
 						return this.addToUploadQueue(async () => {
 							// Validate source ID before starting upload
@@ -1396,7 +1396,7 @@ export default class LettaPlugin extends Plugin {
 					this.source.id,
 				);
 				const existingFile = existingFiles.find(
-					(f: any) => f.original_file_name === file.path,
+					(f: any) => f.original_file_name === file.path.replace(/\//g, "__"),
 				);
 
 				if (existingFile) {
@@ -1501,7 +1501,7 @@ export default class LettaPlugin extends Plugin {
 						`/v1/folders/${this.source.id}/files?limit=100000`,
 					);
 					const existingFile = existingFiles.find(
-						(f: any) => f.original_file_name === file.path,
+						(f: any) => f.original_file_name === file.path.replace(/\//g, "__"),
 					);
 					if (existingFile) {
 						await this.makeRequest(
@@ -1581,7 +1581,7 @@ export default class LettaPlugin extends Plugin {
 				this.source.id,
 			);
 			const existingFile = existingFiles.find(
-				(f: any) => f.original_file_name === file.path,
+				(f: any) => f.original_file_name === file.path.replace(/\//g, "__"),
 			);
 
 			if (existingFile) {
@@ -1613,7 +1613,7 @@ export default class LettaPlugin extends Plugin {
 				this.source.id,
 			);
 			const existingFile = existingFiles.find(
-				(f: any) => f.original_file_name === file.path,
+				(f: any) => f.original_file_name === file.path.replace(/\//g, "__"),
 			);
 
 			if (existingFile) {
@@ -1640,7 +1640,7 @@ export default class LettaPlugin extends Plugin {
 						`/v1/folders/${this.source.id}/files?limit=100000`,
 					);
 					const newFile = updatedFiles.find(
-						(f: any) => f.original_file_name === file.path,
+						(f: any) => f.original_file_name === file.path.replace(/\//g, "__"),
 					);
 
 					if (newFile) {
@@ -1677,7 +1677,7 @@ export default class LettaPlugin extends Plugin {
 				this.source.id,
 			);
 			const existingFile = existingFiles.find(
-				(f: any) => f.original_file_name === file.path,
+				(f: any) => f.original_file_name === file.path.replace(/\//g, "__"),
 			);
 
 			if (existingFile) {
